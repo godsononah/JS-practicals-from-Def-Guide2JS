@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+<body>
+    <p>
+        This is a red square: <canvas id="square"></canvas>.
+    </p>
+    <p>
+        This is a blue circle: <canvas id="circle"></canvas>
+    </p>
+
+    <script>
+        let canvas = document.querySelector("#square");     // Get first canvas element
+        let context = canvas.getContext("2d");              // Get 2D drawing context
+        context.fillStyle = "#f00";                         // Set a fill color to red
+        context.fillRect(0, 0, 10, 10);                     // Fill a square
+
+        canvas = document.querySelector("#circle");         // Second canvas element
+        context = canvas.getContext("2d");                  // Get its context
+        context.beginPath();                                // Begin a new "path"
+        context.arc(5, 5, 5, 0, 2*Math.PI, true);           // Add a circle to the path
+        context.fillStyle = "#00f";                         // Set a blue fill color
+        context.fill();                                     // Fill the path
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Bubbling</title>
+    <style>
+        #form {
+            margin-left: 1em;
+        }
+        label, input {
+            display: block;
+        }
+        input {
+            margin-bottom: 2em;
+        }
+    </style>
+</head>
+<body>
+    <form action="" id="form">
+        <label for="">Name:<input type="text" name="" id="name"></label>
+        <label for="">Email<input type="email" name="" id="email"></label>
+        <label for="">Password<input type="password" name="" id="password"></label>
+    </form>
+
+    <script type="text/x-custom-data" id="text-script">
+        This is the text!
+    </script>
+
+    <script>
+        const form = document.getElementById('form');
+        form.addEventListener('change', function() {
+            form.style.border = "1px solid green";
+        });
+
+        let text = document.querySelector('#text-script').text;
+        console.log(text);
+    </script>
+</body>
+</html>

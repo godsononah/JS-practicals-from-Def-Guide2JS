@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital</title>
+    <style>
+        #clock {
+            font: bold 1.5rem sans-serif;
+            background: #ddf;
+            padding: 0.9375rem;
+            border: 2px solid black;
+            border-radius: 0.625rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Digital Clock</h1>
+    <span id="clock"></span>
+
+    <script>
+        // Define a function to display the current time
+        function displayTime() {
+            let clock = document.querySelector("#clock");
+            let now = new Date();
+
+            clock.textContent = now.toLocaleTimeString();
+        }
+        displayTime();
+        setInterval(displayTime, 1000);
+
+        // Extra test codes
+        console.log(document.readyState);
+        console.log(navigator.userAgent);
+        console.log(navigator.language);
+        console.log(navigator.hardwareConcurrency);
+    </script>
+</body>
+</html>

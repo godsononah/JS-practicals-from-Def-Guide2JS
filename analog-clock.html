@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock</title>
+    <style>
+        #clock {
+            display: block;
+            margin: auto;
+            stroke: black;                    /* black lines */
+            stroke-linecap: round;              /* with rounded ends */
+            fill: #ffe;                       /* on an off-white background */
+        }
+        #clock .face { stroke-width: 3; }       /* Clock face outline */
+        #clock .ticks { stroke-width: 2; }      /* Lines that mark each */
+        #clock .hands { stroke-width: 3; }      /* How to draw the clock hands */
+        #clock .numbers {                       /* How to draw the numbers */
+            font-family: sans-serif;
+            font-size: 10;
+            text-anchor: middle;
+            stroke: none;
+            fill: black;
+        }
+    </style>
+</head>
+<body>
+    <svg id="clock" viewBox="0 0 100 100" width="250" height="250">
+        <!-- The width and height attributes are the screen size of the graphic -->
+        <!-- The viewBox attribute gives the internal coordinate system -->
+        <circle class="face" cx="50" cy="50" r="45"/>   <!-- the clock face -->
+        <g class="ticks">   <!-- tick marks for each of the 12 hours -->
+            <line x1='50' y1='5.000' x2='50.00' y2='10.00'/>
+            <line x1='72.50' y1='11.03' x2='70.00' y2='15.36'/>
+            <line x1='88.97' y1='27.50' x2='84.64' y2='30.00'/>
+            <line x1='95.00' y1='50.00' x2='90.00' y2='50.00'/>
+            <line x1='88.97' y1='72.50' x2='84.64' y2='70.00'/>
+            <line x1='72.50' y1='88.97' x2='70.00' y2='84.64'/>
+            <line x1='50.00' y1='95.00' x2='50.00' y2='90.00'/>
+            <line x1='27.50' y1='88.97' x2='30.00' y2='84.64'/>
+            <line x1='11.03' y1='72.50' x2='15.36' y2='70.00'/>
+            <line x1='5.000' y1='50.00' x2='10.00' y2='50.00'/>
+            <line x1='11.03' y1='27.50' x2='15.36' y2='30.00'/>
+            <line x1='27.50' y1='11.03' x2='30.00' y2='15.36'/>
+        </g>
+        <g class="numbers"> <!-- Number the cardinal directions -->
+            <text x="50" y="18">12</text><text x="85" y="53">3</text>
+            <text x="50" y="88">6</text><text x="15" y="53">9</text>
+        </g>
+        <g class="hands">   <!-- Draw hands pointing straight up. -->
+            <line class="hourhand" x1="50" y1="50" x2="50" y2="30"/>
+            <line class="minutehand" x1="50" y1="50" x2="50" y2="20"/>
+            <line class="secondhand" x1="50" y1="50" x2="50" y2="15"/>
+        </g>
+    </svg>
+
+    <script>
+        (function updateClock() {                       // Update the SVG clock graphic to show current time
+            let now = new Date();                       // Current time
+            let sec = now.getSeconds();                 // Seconds
+            let min = now.getMinutes() + sec/60;        // Fractional minutes
+            let hour = (now.getHours() % 12) + min/60   // Fractional hours
+            let secAngle = sec * 6;
+            let minAngle = min * 6;                     // 6 degrees per minute
+            let hourAngle = hour * 30;                  // 30 degrees per hour
+
+            // Get SVG elements for the hands of the clock
+            let secHand = document.querySelector("#clock .secondhand");
+            let minHand = document.querySelector("#clock .minutehand");
+            let hourHand = document.querySelector("#clock .hourhand");
+
+            // Set an SVG attribute on them to move them around the clock face
+            secHand.setAttribute("transform", `rotate(${secAngle}, 50, 50)`);
+            minHand.setAttribute("transform", `rotate(${minAngle}, 50, 50)`);
+            hourHand.setAttribute("transform", `rotate(${hourAngle}, 50, 50)`);
+
+            // Run this function again in 10 seconds
+            setTimeout(updateClock, 1000);
+        })();
+    </script>
+</body>
+</html>
